@@ -1,0 +1,116 @@
+# import CompanyConnection, RatingConnection, UserConnection, UserOrderByInput, CompanyOrderByInput, RatingOrderByInput from './generated/prisma.graphql'
+
+type Query {
+    users(query: String, first: Int, skip: Int, orderBy: UserOrderByInput, after: ID): UserConnection!
+    companies(query: String, first: Int, skip: Int, orderBy: CompanyOrderByInput, after: ID): CompanyConnection!
+    myCompanies(query: String, first: Int, skip: Int, orderBy: CompanyOrderByInput, after: ID): CompanyConnection!
+    ratings(first: Int, skip: Int, orderBy: RatingOrderByInput, after: ID): RatingConnection!
+    companyRatings(id: ID!, first: Int, after: ID, orderBy: RatingOrderByInput): RatingConnection!
+    me: User!
+    company(id: ID!): Company!
+    rating(id: ID!): Rating!
+}
+
+type Mutation {
+    createUser(data: CreateUserInput): UserAuthPayload!
+    login(data: LoginUserInput): UserAuthPayload!
+    updateUser(data: UpdateUserInput): User!
+    deleteUser: User!
+    createCompany(data: CreateCompanyInput): Company!
+    updateCompany(id: ID!, data: UpdateCompanyInput): Company!
+    deleteCompany(id: ID!): Company!
+    createRating(data: CreateRatingInput): Rating!
+    updateRating(id: ID!, data: UpdateRatingInput): Rating!
+    deleteRating(id: ID!): Rating!
+    deleteManyRatings(company: ID!): Count!
+}
+
+input CreateUserInput {
+    name: String!
+    email: String!
+    password: String!
+}
+
+input LoginUserInput {
+    email: String!
+    password: String!
+}
+
+input UpdateUserInput {
+    name: String
+    email: String
+    password: String
+}
+
+input CreateCompanyInput {
+    title: String!
+    email: String!
+    description: String
+    phone: String!
+    published: Boolean!
+    services: [String!]!
+}
+
+input UpdateCompanyInput {
+    title: String
+    email: String
+    description: String
+    phone: String
+    published: Boolean
+    services: [String]
+}
+
+input CreateRatingInput {
+    comment: String!
+    star: Float
+    company: ID!
+}
+
+input UpdateRatingInput {
+    comment: String
+    star: Float
+}
+
+type UserAuthPayload {
+    user: User!,
+    token: String!
+}
+
+type User {
+    id: ID!
+    name: String!
+    email: String!
+    password: String!
+    companies: [Company!]!
+    ratings: [Rating!]!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type Company {
+    id: ID!
+    title: String!
+    email: String!
+    description: String
+    phone: String!
+    published: Boolean!
+    services: [String!]!
+    creator: User!
+    ratings: [Rating!]!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type Rating {
+    id: ID!
+    comment: String!
+    star: Float
+    creator: User!
+    company: Company!
+    createdAt: String!
+    updatedAt: String!
+}
+
+type Count {
+    count: Int!
+}

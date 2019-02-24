@@ -1,0 +1,34 @@
+type User {
+  id: ID! @unique
+  name: String!
+  email: String! @unique
+  password: String!
+  companies: [Company!]! @relation(name: "CompanyToUser", onDelete: CASCADE)
+  ratings: [Rating!]! @relation(name: "RatingToUser", onDelete: CASCADE)
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Company {
+  id: ID! @unique
+  title: String!
+  email: String!
+  description: String
+  phone: String!
+  published: Boolean!
+  services: [String!]!
+  creator: User! @relation(name: "CompanyToUser", onDelete: SET_NULL)
+  ratings: [Rating!]! @relation(name: "RatingToCompany", onDelete: CASCADE)
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+type Rating {
+  id: ID! @unique
+  comment: String!
+  star: Float
+  company: Company! @relation(name: "RatingToCompany", onDelete: SET_NULL)
+  creator: User! @relation(name: "RatingToUser", onDelete: SET_NULL)
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
