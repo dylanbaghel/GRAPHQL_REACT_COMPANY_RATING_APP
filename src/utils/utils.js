@@ -5,7 +5,7 @@ export const getUserId = (request, requireAuth=true) => {
 
      if (header) {
          const token = header.replace('Bearer ', "");
-         const decoded = jwt.verify(token, 'abhishek');
+         const decoded = jwt.verify(token, process.env.JWT_SECRET);
          return decoded.userId;
      }
 
@@ -17,5 +17,5 @@ export const getUserId = (request, requireAuth=true) => {
 };
 
 export const generateAuthToken = (userId) => {
-    return jwt.sign({ userId }, 'abhishek', { expiresIn: "7 days" });
+    return jwt.sign({ userId }, process.env.JWT_SECRET, { expiresIn: "7 days" });
 }
