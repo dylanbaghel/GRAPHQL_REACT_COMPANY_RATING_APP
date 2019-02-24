@@ -17,7 +17,7 @@ const Header = () => {
                         {({ data }) => {
                             return <nav className="navbar navbar-dark bg-dark mb-5">
                                 <div className="container">
-                                    <Link to="/" className="navbar-brand"><img className="logo" src={Logo} /></Link>
+                                    <Link to="/" className="navbar-brand"><img className="logo" src={Logo} alt="Rate It Logo"/></Link>
                                     <ul className="navbar-nav ml-auto">
                                         <li className="nav-item">
                                             <Link to="/companies" className="nav-link">Companies</Link>
