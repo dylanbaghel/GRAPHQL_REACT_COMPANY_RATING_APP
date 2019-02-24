@@ -72,7 +72,8 @@ const ShowCompany = ({
                                                             <Mutation
                                                                 mutation={DELETE_COMPANY}
                                                             >
-                                                                {(deleteCompany) => {
+                                                                {(deleteCompany, { loading }) => {
+                                                                    if (loading) return <Loader />
                                                                     return (
                                                                         <button className="btn btn-danger" onClick={() => {
                                                                             deleteCompany({

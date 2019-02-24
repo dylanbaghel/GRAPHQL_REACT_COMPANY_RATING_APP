@@ -42,7 +42,10 @@ const EditCompany = ({
                                     <Mutation
                                         mutation={UPDATE_COMPANY}
                                     >
-                                        {(updateCompany, { error }) => {
+                                        {(updateCompany, { error, loading }) => {
+                                            if (loading) {
+                                                return <Loader />
+                                            }
                                             return (
                                                 <React.Fragment>
                                                     {error && <Error>{error.message}</Error>}
