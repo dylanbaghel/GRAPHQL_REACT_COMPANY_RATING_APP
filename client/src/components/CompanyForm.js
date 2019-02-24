@@ -11,6 +11,7 @@ class AddCompany extends React.Component {
             title: this.props.company ? this.props.company.title : "",
             email: this.props.company ? this.props.company.email : "",
             phone: this.props.company ? this.props.company.phone : "",
+            description: this.props.company && this.props.company.description ? this.props.company.description : "",
             published: this.props.company ? this.props.company.published : false,
             services: this.props.company ? this.props.company.services: [],
             errors: {}
@@ -18,6 +19,7 @@ class AddCompany extends React.Component {
         this.handleEmailChange = this.handleEmailChange.bind(this);
         this.handlePhoneChange = this.handlePhoneChange.bind(this);
         this.handleTitleChange = this.handleTitleChange.bind(this);
+        this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
         this.handlePublishedChange = this.handlePublishedChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.clearState = this.clearState.bind(this);
@@ -57,6 +59,13 @@ class AddCompany extends React.Component {
         }));
     }
 
+    handleDescriptionChange(e) {
+        const description = e.target.value;
+        this.setState(() => ({
+            description
+        }));
+    }
+
     clearState() {
         this.setState(() => ({
             title: "",
@@ -93,11 +102,18 @@ class AddCompany extends React.Component {
             }));
             return;
         }
+        if (this.state.services.length === 0) {
+            this.setState(() => ({
+                errors: { services: "Add Atleast One Service" }
+            }));
+            return;
+        }
 
         this.props.onSubmit({
             title: this.state.title,
             email: this.state.email,
             phone: this.state.phone,
+            description: this.state.description,
             published: this.state.published,
             services: this.state.services
         });
@@ -147,6 +163,16 @@ class AddCompany extends React.Component {
                             <div className="invalid-feedback">{this.state.errors.phone}</div>
                         </div>
                         <div className="form-group">
+                            <textarea value={this.state.description}
+                                    onChange={this.handleDescriptionChange}
+                                    className={classNames('form-control', {
+                                        'is-invalid': this.state.errors.description
+                                    })}
+                                    placeholder="Company Description(Optional)"
+                            ></textarea>
+                            <div className="invalid-feedback">{this.state.errors.description}</div>
+                        </div>
+                        <div className="form-group">
                             <CheckSwitch
                                 checked={this.state.published}
                                 onChange={this.handlePublishedChange}
@@ -161,6 +187,7 @@ class AddCompany extends React.Component {
                             placeholder={'Services'}
 
                         />
+                        {this.state.errors.services && <p style={{fontSize: '13px'}} className="text-danger">{this.state.errors.services}</p>}
                         <button type="submit" className="btn btn-success mt-3">Submit</button>
                     </form>
                 </div>

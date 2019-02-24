@@ -14,9 +14,12 @@ const Dashboard = () => {
             <Query
                 query={ME}
             >
-                {({ data, loading }) => {
+                {({ data, loading, error }) => {
                     if (loading) {
                         return null;
+                    }
+                    if (error) {
+                        return <Error>{error.message}, Please Reload Page</Error>
                     }
                     return (
                         <h1>Hello, { data.me.name }</h1>
@@ -31,7 +34,7 @@ const Dashboard = () => {
                 variables={{ orderBy: 'createdAt_DESC' }}
                 fetchPolicy={'cache-and-network'}
             >
-                {({ data, error, loading, fetchMore, refetch }) => {
+                {({ data, error, loading, fetchMore }) => {
                     if (!data) {
                         return <div style={{textAlign: 'center'}}>Internal Server Error | No Data</div>
                     }

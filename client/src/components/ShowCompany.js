@@ -45,6 +45,14 @@ const ShowCompany = ({
                                                 <br />
                                                 <small className="text-muted">-               {data.company.creator.name}</small>
                                                 <hr />
+                                                {data.company.description && (
+                                                    <React.Fragment>
+                                                        <h5>Description: </h5>
+                                                        <p>{data.company.description}</p>
+                                                    </React.Fragment>
+
+                                                )}
+                                                <hr />
                                                 <h5>Contact Details: </h5>
                                                 <ul className="list-group">
                                                     <li className="list-group-item">Email: {data.company.email}</li>

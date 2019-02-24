@@ -46,6 +46,7 @@ export const GET_INDI_COMPANY = gql`
             email
             phone
             published
+            description
             services
             createdAt
             creator {
@@ -120,8 +121,8 @@ export const DELETE_USER = gql`
 `;
 
 export const CREATE_COMPANY = gql`
-    mutation($title: String!, $email: String!, $phone: String!, $published: Boolean!, $services: [String!]!) {
-        createCompany(data: {title: $title, email: $email, phone: $phone, published: $published, services: $services}) {
+    mutation($title: String!, $email: String!, $description: String, $phone: String!, $published: Boolean!, $services: [String!]!) {
+        createCompany(data: {title: $title, email: $email, description: $description, phone: $phone, published: $published, services: $services}) {
             id
             title
             email
@@ -130,8 +131,8 @@ export const CREATE_COMPANY = gql`
 `;
 
 export const UPDATE_COMPANY = gql`
-    mutation($id: ID!, $title: String, $email: String, $phone: String, $published: Boolean, $services: [String]) {
-        updateCompany(id: $id, data: {title: $title, email: $email, phone: $phone, published: $published, services: $services}) {
+    mutation($id: ID!, $title: String, $email: String, $description: String, $phone: String, $published: Boolean, $services: [String]) {
+        updateCompany(id: $id, data: {title: $title, email: $email, description: $description, phone: $phone, published: $published, services: $services}) {
             id
             title
             email

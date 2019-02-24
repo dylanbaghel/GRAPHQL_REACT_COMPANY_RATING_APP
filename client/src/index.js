@@ -5,10 +5,11 @@ import './index.css';
 import App from './App';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
+import moment from 'moment';
 
 import { defaults, resolvers } from './graphql/resolvers';
 import { typeDefs } from './graphql/typeDefs';
-import { getUserId } from './utils/utils';
+import { getUserInfo } from './utils/utils';
 import { SET_AUTH } from './graphql/client';
 
 const client = new ApolloClient({
@@ -30,12 +31,21 @@ const client = new ApolloClient({
 
 if (localStorage.getItem('companyToken')) {
     const token = localStorage.getItem('companyToken');
-    const userId = getUserId(token);
-
-    client.mutate({ mutation: SET_AUTH, variables: { userId }})
+    const user = getUserInfo(token);
+    const now = moment().unix();
+    if (moment(now).isBefore(user.exp)) {
+        client.mutate({ mutation: SET_AUTH, variables: { userId: user.userId }})
         .then(() => {
             renderApp();
         });
+    } else {
+        localStorage.removeItem('companyToken');
+        client.mutate({ mutation: SET_AUTH, variables: { userId: null } })
+        .then(() => {
+            renderApp();
+        });
+    }
+    
 } else {
     client.mutate({ mutation: SET_AUTH, variables: { userId: null } })
         .then(() => {
