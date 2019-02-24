@@ -1,5 +1,5 @@
 # source: http://192.168.99.100:4466/graphql/company_rating
-# timestamp: Thu Feb 21 2019 10:42:56 GMT+0530 (India Standard Time)
+# timestamp: Sun Feb 24 2019 15:27:53 GMT+0530 (India Standard Time)
 
 type AggregateCompany {
   count: Int!
@@ -22,6 +22,7 @@ type Company implements Node {
   id: ID!
   title: String!
   email: String!
+  description: String
   phone: String!
   published: Boolean!
   services: [String!]!
@@ -44,6 +45,7 @@ type CompanyConnection {
 input CompanyCreateInput {
   title: String!
   email: String!
+  description: String
   phone: String!
   published: Boolean!
   services: CompanyCreateservicesInput
@@ -68,6 +70,7 @@ input CompanyCreateservicesInput {
 input CompanyCreateWithoutCreatorInput {
   title: String!
   email: String!
+  description: String
   phone: String!
   published: Boolean!
   services: CompanyCreateservicesInput
@@ -77,6 +80,7 @@ input CompanyCreateWithoutCreatorInput {
 input CompanyCreateWithoutRatingsInput {
   title: String!
   email: String!
+  description: String
   phone: String!
   published: Boolean!
   services: CompanyCreateservicesInput
@@ -99,6 +103,8 @@ enum CompanyOrderByInput {
   title_DESC
   email_ASC
   email_DESC
+  description_ASC
+  description_DESC
   phone_ASC
   phone_DESC
   published_ASC
@@ -113,6 +119,7 @@ type CompanyPreviousValues {
   id: ID!
   title: String!
   email: String!
+  description: String
   phone: String!
   published: Boolean!
   services: [String!]!
@@ -249,6 +256,46 @@ input CompanyScalarWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
   phone: String
 
   """All values that are not equal to given value."""
@@ -381,6 +428,7 @@ input CompanySubscriptionWhereInput {
 input CompanyUpdateInput {
   title: String
   email: String
+  description: String
   phone: String
   published: Boolean
   services: CompanyUpdateservicesInput
@@ -391,6 +439,7 @@ input CompanyUpdateInput {
 input CompanyUpdateManyDataInput {
   title: String
   email: String
+  description: String
   phone: String
   published: Boolean
   services: CompanyUpdateservicesInput
@@ -399,6 +448,7 @@ input CompanyUpdateManyDataInput {
 input CompanyUpdateManyMutationInput {
   title: String
   email: String
+  description: String
   phone: String
   published: Boolean
   services: CompanyUpdateservicesInput
@@ -434,6 +484,7 @@ input CompanyUpdateservicesInput {
 input CompanyUpdateWithoutCreatorDataInput {
   title: String
   email: String
+  description: String
   phone: String
   published: Boolean
   services: CompanyUpdateservicesInput
@@ -443,6 +494,7 @@ input CompanyUpdateWithoutCreatorDataInput {
 input CompanyUpdateWithoutRatingsDataInput {
   title: String
   email: String
+  description: String
   phone: String
   published: Boolean
   services: CompanyUpdateservicesInput
@@ -594,6 +646,46 @@ input CompanyWhereInput {
 
   """All values not ending with the given string."""
   email_not_ends_with: String
+  description: String
+
+  """All values that are not equal to given value."""
+  description_not: String
+
+  """All values that are contained in given list."""
+  description_in: [String!]
+
+  """All values that are not contained in given list."""
+  description_not_in: [String!]
+
+  """All values less than the given value."""
+  description_lt: String
+
+  """All values less than or equal the given value."""
+  description_lte: String
+
+  """All values greater than the given value."""
+  description_gt: String
+
+  """All values greater than or equal the given value."""
+  description_gte: String
+
+  """All values containing the given string."""
+  description_contains: String
+
+  """All values not containing the given string."""
+  description_not_contains: String
+
+  """All values starting with the given string."""
+  description_starts_with: String
+
+  """All values not starting with the given string."""
+  description_not_starts_with: String
+
+  """All values ending with the given string."""
+  description_ends_with: String
+
+  """All values not ending with the given string."""
+  description_not_ends_with: String
   phone: String
 
   """All values that are not equal to given value."""
