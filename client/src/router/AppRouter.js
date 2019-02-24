@@ -24,7 +24,7 @@ const AppRouter = () => {
             <div>
                 <Header />
                 <Switch>
-                    <Route 
+                    <PublicRoute 
                         exact path="/"
                         component={LandingPage}
                     />

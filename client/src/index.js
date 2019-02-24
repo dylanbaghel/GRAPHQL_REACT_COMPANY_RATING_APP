@@ -13,7 +13,7 @@ import { getUserInfo } from './utils/utils';
 import { SET_AUTH } from './graphql/client';
 
 const client = new ApolloClient({
-    uri: process.env.GRAPHQL_API_URL || "http://localhost:4200/",
+    uri: "https://graphql-react-company-rating.herokuapp.com",
     request: operation => {
         const token = localStorage.getItem('companyToken');
       operation.setContext({
